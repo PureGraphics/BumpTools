@@ -21,12 +21,18 @@
     <ClCompile Include="src\image.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\converter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\image.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\common_header.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\converter.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
