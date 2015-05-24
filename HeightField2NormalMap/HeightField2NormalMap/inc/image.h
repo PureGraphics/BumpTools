@@ -41,6 +41,7 @@ void img_lib_init();
 void img_lib_dispose();
 void img_load_image(const char *path, image_data *data);
 void img_save_image(const char *path, image_data *data);
+void img_gray_scale(image_data *data);
 
 #ifdef __cplusplus
 }

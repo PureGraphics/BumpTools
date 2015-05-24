@@ -150,3 +150,44 @@ void img_save_image(const char *path, image_data *data) {
 	CHECK(s_handler->frameEncode->Commit());
 	CHECK(s_handler->encoder->Commit());
 }
+
+void img_gray_scale(image_data *data) {
+	uchar *pixels = data->pixels;
+	uint stride = 0;
+	int byte = 0;
+	switch (data->format) {
+	case IMG_FORMAT_RGB:
+		stride = _get_image_stride(data->width, 24);
+		byte = 3;
+		break;
+	case IMG_FORMAT_BGR:
+		stride = _get_image_stride(data->width, 24);
+		byte = 3;
+		break;
+	case IMG_FORMAT_RGBA:
+		stride = _get_image_stride(data->width, 32);
+		byte = 4;
+		break;
+	case IMG_FORMAT_BGRA:
+		stride = _get_image_stride(data->width, 32);
+		byte = 4;
+		break;
+	default:
+		break;
+	}
+
+	for (int row = 0; row < data->height; row++) {
+		for (int col = 0; col < stride; col+=byte) {
+			if (col + byte > stride)
+				continue;
+			int i = row * stride + col;
+			uchar r = pixels[i];
+			uchar g = pixels[i + 1];
+			uchar b = pixels[i + 2];
+			uchar gray = (r * 30 + g * 59 + b * 11) / 100;
+			pixels[i] = gray;
+			pixels[i + 1] = gray;
+			pixels[i + 2] = gray;
+		}
+	}
+}
