@@ -24,7 +24,7 @@ static void _convert_rgb(image_data *height_img) {
 	uchar *pixels = height_img->pixels;
 	uint stride = _get_image_stride(height_img->width, 24);
 	for (int row = 0; row < height_img->height; row++) {
-		for (int col = 0; col < stride; col++) {
+		for (int col = 0; col < stride; col+=3) {
 			if (col + 3 > stride)
 				continue;
 			int i = row * stride + col;
@@ -72,7 +72,7 @@ static void _convert_bgr(image_data *height_img) {
 	uchar *pixels = height_img->pixels;
 	uint stride = _get_image_stride(height_img->width, 24);
 	for (int row = 0; row < height_img->height; row++) {
-		for (int col = 0; col < stride; col++) {
+		for (int col = 0; col < stride; col+=3) {
 			if (col + 3 > stride)
 				continue;
 			int i = row * stride + col;
@@ -80,7 +80,7 @@ static void _convert_bgr(image_data *height_img) {
 			uchar g = pixels[i + 1];
 			uchar r = pixels[i + 2];
 			int hg = _combine_rgb(b, g, r);
-
+			  
 			//above.
 			int ha = 0;
 			if (row == 0) {
@@ -157,11 +157,13 @@ image_data * convert(image_data *height_img) {
 
 	uchar *pixels = normal_img->pixels;
 	for (int row = 0; row < normal_img->height; row++) {
-		for (int col = 0; col < stride; col++) {
+		for (int col = 0; col < stride; col+=3) {
+			if (col + 3 > stride)
+				continue;
 			int i = row * stride + col;
-			pixels[i] = (s_normal_temp[i] + 1) * 125;
-			pixels[i + 1] = (s_normal_temp[i + 1] + 1) * 125;
-			pixels[i + 2] = (s_normal_temp[i + 2] + 1) * 125;
+			pixels[i] = (s_normal_temp[i] + 1) * 127;
+			pixels[i + 1] = (s_normal_temp[i + 1] + 1) * 127;
+			pixels[i + 2] = (s_normal_temp[i + 2] + 1) * 127;
 		}
 	}
 
