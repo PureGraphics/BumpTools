@@ -5,6 +5,7 @@
 #include <atlbase.h>
 
 #include "image.h"
+#include "utils.h"
 
 #define CHECK(S) assert((S) == S_OK)
 
@@ -17,17 +18,6 @@ typedef struct image_handler {
 } image_handler;
 
 static image_handler *s_handler = nullptr;
-
-static wchar_t* _char2wchar_t(const char* str) {
-	int len = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
-	if (len == 0){
-		return NULL;
-	}
-	wchar_t* buf = (wchar_t*)malloc(sizeof(wchar_t)*(len + 1));
-	MultiByteToWideChar(CP_UTF8, 0, str, -1, buf, len);
-
-	return buf;
-}
 
 void img_lib_init() {
 	::CoInitialize(NULL);
@@ -69,7 +59,7 @@ void img_load_image(const char *path, image_data *data) {
 		img_lib_init();
 	}
 
-	wchar_t *wpath = _char2wchar_t(path);
+	wchar_t *wpath = char2wchar_t(path);
 	CHECK(s_handler->factory->CreateDecoderFromFilename(
 		wpath,
 		nullptr,
@@ -132,7 +122,7 @@ void img_save_image(const char *path, image_data *data) {
 		return;
 	}
 
-	wchar_t *wpath = _char2wchar_t(path);
+	wchar_t *wpath = char2wchar_t(path);
 	CComPtr<IWICStream> stream;
 	CHECK(s_handler->factory->CreateStream(&stream));
 	CHECK(stream->InitializeFromFilename(wpath, GENERIC_WRITE));

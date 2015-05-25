@@ -24,6 +24,9 @@
     <ClCompile Include="src\converter.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\image.h">
@@ -33,6 +36,9 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\converter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\utils.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
